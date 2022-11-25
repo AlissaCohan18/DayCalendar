@@ -7,6 +7,8 @@ var tasks = {};
 var timeStamp;
 var taskDescription;
 var timeKeeper;
+var taskId 
+var saveId
 
 //create elements for hour blocks
 var startTime = moment().startOf("day").add(8, "hours");
@@ -14,7 +16,7 @@ var i = 0;
 var hr;
 while (i < 10) {
   var timeContainer = document.createElement("section");
-  timeContainer.setAttribute("class", "row");
+  timeContainer.setAttribute("class", "time-block row");
   timeContainer.setAttribute("id", "section" + i);
   document.querySelector(".container").appendChild(timeContainer);
   //set time for each block
@@ -29,6 +31,7 @@ while (i < 10) {
   //text fields for each block
   var textEl = document.createElement("textarea");
   textEl.setAttribute("id", hr2);
+  textEl.setAttribute("id", "cd"+i);
   document.getElementById("section" + i).appendChild(textEl);
   //set class for past/present/future
   var now = moment().format("HH");
@@ -71,18 +74,26 @@ if (!allTasks) {
   }
 }
 
-//event listeners; load tasks
+//update task description
 $(".description").change(function () {
-     newTasks = {
-    timeStamp: $(this).attr("id"),
-    taskDescription: $(this).val(),
-  };
-  allTasks.push(newTasks);
-  console.log(allTasks);
-  localStorage.setItem("tasks", JSON.stringify(allTasks));
-   });
+  newTasks = {
+ timeStamp: $(this).attr("id"),
+ taskDescription: $(this).val(),
+};
+taskId = $(this).attr("id")
+ 
 
+//event listener for save/submit
 $(".saveBtn").click(function () {
-    console.log($(this).attr("id"))
-    
+  saveId = $(this).attr("id")
+var newId = "cd"+saveId
+if (newId === taskId) {
+  allTasks.push(newTasks);
+  localStorage.setItem("tasks", JSON.stringify(allTasks));  
+} else {
+  console.log("not a match")
+
+}
+
+});
 });
