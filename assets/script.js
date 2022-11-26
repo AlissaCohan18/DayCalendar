@@ -64,7 +64,7 @@ if (!allTasks) {
 
 //update task description when saved
 $(".description").change(function () {
-  newTasks = {
+  var newTasks = {
     timeStamp: $(this).attr("id"),
     taskDescription: $(this).val(),
   };
